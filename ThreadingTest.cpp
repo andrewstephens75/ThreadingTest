@@ -23,12 +23,14 @@ public:
         return data_.at(index);
     }
 
+    // update a value
     void updateValue(size_t index, int64_t value)
     {
         std::this_thread::sleep_for(std::chrono::milliseconds(5));
         data_.at(index) += value;
     }
 
+    // used for testing
     bool isAllZero()
     {
         return std::all_of(data_.begin(), data_.end(), [](const int64_t &x) -> bool
@@ -36,7 +38,7 @@ public:
     }
 
     static constexpr size_t DATABASE_SIZE = 10;
-    static constexpr auto DATABASE_TYPE = "Non-threadsafe database";
+    static constexpr auto DATABASE_TYPE = "non-threadsafe database";
 
     friend std::ostream &operator<<(std::ostream &os, const Database &db);
 
@@ -62,7 +64,7 @@ public:
         Database::updateValue(index, value);
     }
 
-    static constexpr auto DATABASE_TYPE = "Single mutex database";
+    static constexpr auto DATABASE_TYPE = "single mutex database";
 
 private:
     mutable std::mutex mutex_;
@@ -87,7 +89,7 @@ public:
         Database::updateValue(index, value);
     }
 
-    static constexpr auto DATABASE_TYPE = "Shared mutex database";
+    static constexpr auto DATABASE_TYPE = "shared mutex database";
 
 private:
     mutable std::shared_mutex shared_mutex_;
@@ -113,7 +115,7 @@ public:
         Database::updateValue(index, value);
     }
 
-    static constexpr auto DATABASE_TYPE = "Split mutex database";
+    static constexpr auto DATABASE_TYPE = "split mutex database";
 
 private:
     mutable std::array<std::mutex, DATABASE_SIZE / 2> mutexes_;

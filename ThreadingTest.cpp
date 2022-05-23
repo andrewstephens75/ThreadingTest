@@ -5,6 +5,7 @@
 #include <shared_mutex>
 #include <mutex>
 #include <chrono>
+#include <algorithm>
 
 // A simple "database" with no locking that is dangerous to use across multiple threads
 // The sleep_for statements simulate a more complex operation
